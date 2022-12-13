@@ -25,7 +25,7 @@ class LoginRequest extends FormRequest
     {
         return ['name' => 'required|max:255|min:3',
             'email'    => 'required|max:100|min:5',
-            'password' => 'required|max:30|min:3',
+            'password' => 'required|max:100|min:3',
             'image'    => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:9048',
             'terms'    => 'accepted'
         ];
@@ -33,12 +33,12 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'image.mimes'                => 'صيغة الصورة غير مسموحة',
-            'image.required'             => 'يجب اختيار صوره',
-            'name.required'              => 'يجب ادخال الاسم',
-            'email.required'             => 'يجب ادخال الإيميل',
-            'password.required'          => 'يجب ادخال كلمة مرور',
-            'password.min'               => 'الحد الادني لكلمة المرور : 6 أحرف',
+            'image.mimes'                => __('messages.Image format is not allowed'),
+            'image.required'             => __('messages.His photo must be selected'),
+            'name.required'              => __('messages.Name is required'),
+            'email.required'             => __('messages.You must enter the email'),
+            'password.required'          => __('messages.You must enter a password'),
+            'password.min'               => __('messages.Minimum password: 6 characters'),
         ];
     }
 

@@ -57,7 +57,13 @@ Edit {{--{{$book->name}}--}}
 
                             </div>
                         </div>
-
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" value="yes" type="checkbox" name="terms" required> {{__('messages.I agree on blabla.')}}
+                                <div class="valid-feedback">Valid.</div>
+                                <div class="invalid-feedback">{{__('messages.Check this checkbox to continue.')}}</div>
+                            </label>
+                            <br>
                         <br>
                         <button type="submit" class="btn btn-success">Submit</button>
                     </form>

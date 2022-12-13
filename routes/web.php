@@ -18,20 +18,21 @@ use Illuminate\Support\Facades\Route;
 //});
 
 
+Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
 
-Route::get('login/create', 'LoginController@create');
-Route::POST('login/create', 'LoginController@store')->name('loginCreate');
+    Route::get('user/create', 'LoginController@create');
+    Route::POST('user/create', 'LoginController@store')->name('userCreate');
 
-Route::get('/user/update/{id}','LoginController@edit');
-Route::post('/user/update/{id}','LoginController@update');
-
-
-Route::get('/user/showAll','LoginController@showAll');
-Route::get('/user/show/{id}','LoginController@show');
-
-Route::get('/user/delete/{id}','LoginController@destroy');
+    Route::get('/user/update/{id}', 'LoginController@edit');
+    Route::post('/user/update/{id}', 'LoginController@update');
 
 
+    Route::get('/user/showAll', 'LoginController@showAll');
+    Route::get('/user/show/{id}', 'LoginController@show');
 
+    Route::get('/user/delete/{id}', 'LoginController@destroy');
+
+
+});
 

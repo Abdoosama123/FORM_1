@@ -9,16 +9,12 @@ use App\User;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Hash;
 
-//use App\Traits\LoginTrait;
+use App\Traits\LoginTrait;
 class LoginController extends Controller
 {
-//    use LoginTrait;
-
-    function index(){
-        return view('navView');
+    use LoginTrait;
 
 
-    }
 
 
     function show($id)
@@ -49,24 +45,20 @@ class LoginController extends Controller
 
     public function store(LoginRequest $request)
     {
-        $imageName="";
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $name = 'route_'.time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $image->move($destinationPath, $name);
-            $imageName='images/'.$name;
-        }
+
+        $file_name = $this->saveImage($request->image, 'images');
+
+
 
         $user = new User();
         $user->name = $request->name;
         $user->email  = $request->email ;
 
         $user->password = Hash::make($request->password);
-        $user->image = $imageName;
+        $user->image = $file_name;
         $user->terms = $request->terms;
         $user->save();
-        return back();
+        return redirect()->back()->with(['success' => __('messages.Added successfully')]);
 
 
     }
@@ -85,22 +77,16 @@ class LoginController extends Controller
     {
         $user=User::findorfail($id);
 
-        $imageName=$user->image;
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $name = 'route_'.time().'.'.$image->getClientOriginalExtension();
-            $destinationPath = public_path('/images');
-            $image->move($destinationPath, $name);
-            $imageName='images/'.$name;
-        }
+        $file_name = $this->saveImage($request->image, 'images');
+
 
         // Update User
         $user->name=$request->name;
         $user->password=$request->password;
         $user->email=$request->email;
-        $user->image=$imageName;
+        $user->image=$file_name;
         $user->save();
-        return redirect('login/create');
+        return redirect('user/create');
     }
 
 
